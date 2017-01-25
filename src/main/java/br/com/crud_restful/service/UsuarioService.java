@@ -1,5 +1,6 @@
 package br.com.crud_restful.service;
 
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
@@ -8,6 +9,7 @@ import javax.persistence.Query;
 import br.com.crud_restful.model.Usuario;
 import br.com.crud_restful.service.AbstractPersistence;
 
+@Stateless
 public class UsuarioService extends AbstractPersistence<Usuario, Long>{
 
 	@PersistenceContext
@@ -46,7 +48,7 @@ public class UsuarioService extends AbstractPersistence<Usuario, Long>{
 		
 		sb.append("select usuario from Usuario as usuario ");
 		sb.append("where usuario.login = :login ");
-		sb.append("where usuario.ativo = true ");
+		sb.append("and usuario.ativo = true ");
 		
 		Query query = em.createQuery(sb.toString());
 		query.setParameter("login", login);
